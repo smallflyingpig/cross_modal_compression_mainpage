@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>
-  Universal Adversarial Perturbations Generation for Speaker Recognition
+  Cross Modal Compression
 </title>
 <link href="./main/style.css" rel="stylesheet" type="text/css">
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -38,7 +38,7 @@ LatexIT.add('p',true);
   <!--
   <p><span class="venue">IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2019</span></p>
   -->
-  <p><span class="title">Universal Adversarial Perturbations Generation for Speaker Recognition</span></p>
+  <p><span class="title">Cross Modal Compression: Towards Human-comprehensive Semantic Compression</span></p>
   <br>
   <table border="0" align="center" class="authors">
     <tbody><tr align="center" valign="bottom">
@@ -49,12 +49,14 @@ LatexIT.add('p',true);
       <td><a href="http://people.csail.mit.edu/wojciech">Wojciech Matusik</a><sup>✝</sup></td>
     -->
     <td><a href="https://github.com/smallflyingpig">Jiguo Li</a><sup></sup></td>
+    <td><a href="http://www.jiachuanmin.site/">Chuanmin Jia</a><sup>✝</sup></td>
     <td><a href="https://scholar.google.com/citations?user=KQB-cKAAAAAJ&hl=zh-CN">Xinfeng Zhang</a><sup></sup></td>
-    <td><a href="http://www.jiachuanmin.site/">Chuanmin Jia</a><sup></sup></td>
+  <!--
     <td><a href="https://scholar.google.com/citations?user=x4iWZ7wAAAAJ&hl=en">Jizheng Xu</a><sup></sup></td>
     <td><a href="https://scholar.google.com/citations?user=8G5-2OMAAAAJ&hl=en">Li Zhang</a><sup></sup></td>
     <td><a href="">Yue Wang</a><sup></sup></td>
-    <td><a href="http://www.idm.pku.edu.cn/Teamcon/index/id/456/aid/2831">Siwei Ma</a><sup>✝</sup></td>
+  -->
+    <td><a href="http://www.idm.pku.edu.cn/Teamcon/index/id/456/aid/2831">Siwei Ma</a></td>
     <td><a href="http://www.jdl.ac.cn/htm-gaowen/">Wen Gao</a><sup></sup></td>
     </tr>
   </tbody></table>
@@ -87,7 +89,7 @@ LatexIT.add('p',true);
         <td align="center" style="padding:0 20px 0 0px;">
           <a href="http://www.ucas.ac.cn/">UCAS</a>
         </td>
-  
+<!--
   <td align="right" style="padding:0 0px 0 0px;">
     <a href="https://bytedance.com/zh">
       <img src="./image/ByteDance_Logo.jpg"  height="36" alt="">
@@ -96,7 +98,7 @@ LatexIT.add('p',true);
     <td align="left" style="padding:0 0px 0 0px;">
       <a href="https://bytedance.com/zh">Bytedance</a>
     </td>
-  
+  -->
     </tr>
   </tbody></table>
   <br>
@@ -104,7 +106,9 @@ LatexIT.add('p',true);
 
   <p><span class="section">Abstract</span> </p>
   <p>
-    Attacking deep learning based biometric systems has drawn more and more attention with the wide deployment of finger-print/face/speaker recognition systems, given the fact that the neural networks are vulnerable to the adversarial examples, which have been intentionally perturbed to remain almost imperceptible for human. In this paper, we demonstrated the existence of the universal adversarial perturbations (UAPs) for the speaker recognition systems. We proposed a generative network to learn the mapping from the low-dimensional normal distribution to the UAPs subspace, then synthesize the UAPs to perturb any input signals to spoof the well-trained speaker recognition model with high probability. Experimental results on TIMIT and LibriSpeech datasets demonstrate the effectiveness of our model.
+    Traditional image/video compression aims to reduce the transmission/storage cost with signal fidelity as high as possible. However, with the increasing demand for machine analysis and semantic monitoring in recent years, semantic fidelity rather than signal fidelity is becoming another emerging concern in image/video compression. 
+    With the recent advances in cross modal translation and generation, in this paper, we propose the cross modal compression~(CMC), a semantic compression framework for visual data, to transform the high redundant visual data~(such as image, video, etc.) into a compact, human-comprehensible domain~(such as text, sketch, semantic map, attributions, etc.), while preserving the semantic. 
+    Specifically, we first formulate the CMC problem as a rate-distortion optimization problem. Secondly, we investigate the relationship with the traditional image/video compression and the recent feature compression frameworks, showing the difference between our CMC and these prior frameworks. Then we propose a novel paradigm for CMC to demonstrate its effectiveness. The qualitative and quantitative results show that our proposed CMC can achieve encouraging reconstructed results with an ultrahigh compression ratio, showing better compression performance than the widely used JPEG baseline. 
     <br>&nbsp;<br>
   </p>
   <p><span class="section">Framework</span> </p>
@@ -113,13 +117,13 @@ LatexIT.add('p',true);
       <tbody>
         <tr>
           <td class="aligncenter">
-            <img src="./image/UAP_net.jpg" width=100% alt="">
+            <img src="./image/CMC_framework_out.png" width=100% alt="">
           </td>
         </tr>
         <tr>
             <td colspan="1" class="caption">
               <p>
-                Illustration of our framework. We train a generator, which is a multi-layer CNN model, to synthesize universal adversarial perturbations (UAPs) from Gaussian noise. The UAPs are additive noise with a scale factor. The victim model is a state-of-the-art speaker recognition model.
+                Illustration of our proposed Cross Modal Compression~(CMC) framework. The compressed representation in the compression domain is a compact, common, and human-comprehensible feature~(such as text, sketch, semantic map, attributions. etc.) which can be losslessly encoded into a bitstream. The whole framework consists of four parts: CMC encoder, CMC decoder, entropy encoder, and entropy decoder.
               <br>
             </p></td>
         </tr>
@@ -127,18 +131,57 @@ LatexIT.add('p',true);
   </table>
 
 
-  <p><span class='section'>Comparison with Gaussian noise</span></p>
+  <table width=90%  border="1" align="center">
+    <tbody
+    <tr>
+        <th>Methods</th><th>Compression Ratio</th><th>Multi-task Analysis</th><th>Human-comprehensive</th><th>Frontend Load</th><th>Backend Load</th><th>Data Reconstruction</th>
+    </tr>
+<tr>
+    <td>Traditional Compression</td><td>Middle</td><td>&#10004</td><td>&times</td><td>Middle</td><td>High</td><td>&#10004</td>
+</tr>    <!-- rowspan合并该列的两个单元格，所以它的下一列将删除一个单元格-->
+
+<tr>
+  <td>Ultimate Feature Compression</td><td>High</td><td>&times</td><td>&times</td><td>High</td><td>Low</td><td>-</td>
+</tr>
+<tr>
+  <td>Intermediate Feature Compression</td><td>High</td><td>&#10004</td><td>&times</td><td>Middle</td><td>Middle</td><td>-</td>
+</tr>
+<tr>
+  <td>Croaa Modal Compression</td><td>High</td><td>&#10004</td><td>&#10004</td><td>Middle</td><td>Middle</td><td>&#10004</td>
+</tr>
+    </tbody>
+    <caption>Comparison with related frameworks</caption>
+</table>
+
+<p><span class='section'>A Paradigm of Cross Modal Compression: Image-Text-Image for cross modal image compression</span></p>
+<table width=90% border="0" align="center">
+  <tbody>
+    <tr>
+      <td class="aligncenter">
+        <img src="./image/CMC_framework_ITI.png" width=100% alt="">
+      </td>
+    </tr>
+    <tr>
+        <td colspan="1" class="caption" align="center">
+          <p>
+            Illustration for a paradigm of CMC: Image-Text-Image~(ITI)
+          <br>
+        </p></td>
+    </tr>
+  </tbody>
+</table>
+  <p><span class='section'>Qualitative results on CUB 200 and MS COCO</span></p>
   <table width=90% border="0" align="center">
     <tbody>
       <tr>
         <td class="aligncenter">
-          <img src="./image/UAP_length.jpg" width=100% alt="">
+          <img src="./image/quanlity_results.png" width=100% alt="">
         </td>
       </tr>
       <tr>
           <td colspan="1" class="caption">
             <p>
-              Comparison with Gaussian noise. We can see that our UAPs can achieve better attack performance, demonstrating that our generator has learned the universal adversarial patterns.
+              Qualitative results of our ITI framework on CUB-200-2011~(left) and MS COCO~(right). For each sample, we show the raw image, the text representation, and the reconstructed image, subsequently. We also show the <i>bitrate</i> and the <i>compression ratio</i> under each text.
             <br>
           </p></td>
       </tr>
@@ -147,204 +190,71 @@ LatexIT.add('p',true);
 
 
 
-  <p><span class='section'>Results on the non-targeted attack</span></p>
-  Here we show the results with $\lambda=1500$.
+  <p><span class='section'>Comparison results with JPEG and JPEG2000</span></p>
   <table width=100% border="0" align="center">
       <tbody>
+
           <tr>
               <td class="aligncenter">
-                The origin speech
+                <img src="./image/rate_IS_jpeg_j2k_coco.png" width=100% alt="">
               </td>
               <td class="aligncenter">
-                  prediction
+                <img src="./image/rate_FID_jpeg_j2k_bird.png" width=100% alt="">
                 </td>
               <td class="aligncenter">
-                The adversarial example
+                <img src="./image/rate_IPD_jpeg_j2k_bird.png" width=100% alt="">
               </td>
               <td class="aligncenter">
-                  prediction
+                <img src="./image/rate_PSNR_jpeg_j2k_bird.png" width=100% alt="">
                 </td>
-                <td class="aligncenter">
-                    ground truth
-                  </td>
+
             </tr>
-        <tr>
-          <td class="aligncenter">
-           <audio src="./audio/raw_data/train/dr1/fcjf0/si1027.ogg" controls="controls" style="width: 250px;"></audio>
-          </td>
-          <td class="aligncenter">
-             fcjf0
-          </td>
-          <td class="aligncenter">
-            <audio src="./audio/output_non_target_phn1/train/dr1/fcjf0/si1027.ogg" controls="controls" style="width: 250px;"></audio>
-          </td>
-          <td class="aligncenter">
-              102
-           </td>
-           <td class="aligncenter">
-            fcjf0
-           </td>
-        </tr>
-        <tr>
-            <td class="aligncenter">
-             <audio src="./audio/raw_data/train/dr1/fcjf0/si1657.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-                fcjf0
-             </td>
-            <td class="aligncenter">
-              <audio src="./audio/output_non_target_phn1/train/dr1/fcjf0/si1657.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              102
-             </td>
-             <td class="aligncenter">
-              fcjf0
-             </td>
-        </tr>
-        <tr>
-          <td class="aligncenter">
-           <audio src="./audio/raw_data/train/dr1/fcjf0/si648.ogg" controls="controls" style="width: 250px;"></audio>
-          </td>
-          <td class="aligncenter">
-              fcjf0
-           </td>
-          <td class="aligncenter">
-            <audio src="./audio/output_non_target_phn1/train/dr1/fcjf0/si648.ogg" controls="controls" style="width: 250px;"></audio>
-          </td>
-          <td class="aligncenter">
-            102
-           </td>
-           <td class="aligncenter">
-            fcjf0
-           </td>
-        </tr>
-        <tr>
-          <td class="aligncenter">
-           <audio src="./audio/raw_data/train/dr1/fdaw0/si1271.ogg" controls="controls" style="width: 250px;"></audio>
-          </td>
-          <td class="aligncenter">
-            fdaw0
-           </td>
-          <td class="aligncenter">
-            <audio src="./audio/output_non_target_phn1/train/dr1/fdaw0/si1271.ogg" controls="controls" style="width: 250px;"></audio>
-          </td>
-          <td class="aligncenter">
-            102
-           </td>
-           <td class="aligncenter">
-            fdaw0
-           </td>
-        </tr>
-        <tr>
-            <td class="aligncenter">
-             <audio src="./audio/raw_data/train/dr1/fdaw0/si1406.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              fdaw0
-             </td>
-            <td class="aligncenter">
-              <audio src="./audio/output_non_target_phn1/train/dr1/fdaw0/si1406.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              102
-             </td>
-             <td class="aligncenter">
-              fdaw0
-             </td>
-        </tr>
-        <tr>
-            <td class="aligncenter">
-             <audio src="./audio/raw_data/train/dr1/fdaw0/si2036.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              fdaw0
-             </td>
-            <td class="aligncenter">
-              <audio src="./audio/output_non_target_phn1/train/dr1/fdaw0/si2036.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              102
-             </td>
-             <td class="aligncenter">
-              fdaw0
-             </td>
-        </tr>
-        <tr>
-            <td class="aligncenter">
-             <audio src="./audio/raw_data/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              faem0
-             </td>
-            <td class="aligncenter">
-              <audio src="./audio/output_non_target_phn1/train/dr2/faem0/si1392.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              38
-             </td>
-             <td class="aligncenter">
-              faem0
-             </td>
-        </tr>
-        <tr>
-            <td class="aligncenter">
-             <audio src="./audio/raw_data/train/dr2/faem0/si2022.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              faem0
-             </td>
-            <td class="aligncenter">
-              <audio src="./audio/output_non_target_phn1/train/dr2/faem0/si2022.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              84
-             </td>
-             <td class="aligncenter">
-              faem0
-             </td>
-        </tr>
-        <tr>
-            <td class="aligncenter">
-             <audio src="./audio/raw_data/train/dr2/faem0/si762.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              faem0
-             </td>
-            <td class="aligncenter">
-              <audio src="./audio/output_non_target_phn1/train/dr2/faem0/si762.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              84
-             </td>
-             <td class="aligncenter">
-              faem0
-             </td>
-        </tr>
-        <tr>
-            <td class="aligncenter">
-             <audio src="./audio/raw_data/train/dr8/fbcg1/si1612.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              fbcg1
-             </td>
-            <td class="aligncenter">
-              <audio src="./audio/output_non_target_phn1/train/dr8/fbcg1/si1612.ogg" controls="controls" style="width: 250px;"></audio>
-            </td>
-            <td class="aligncenter">
-              172
-             </td>
-             <td class="aligncenter">
-              fbcg1
-             </td>
-        </tr>
-        <tr>
-            <td colspan="5" class="caption" align="center">
-              <p>
-                Non-targeted attack results on TIMIT dataset</a>.
-              <br>
-            </p></td>
-        </tr>
+            <tr>
+              <td class="aligncenter">
+                (h) Rate-IS &uarr; on MS COCO
+              </td>
+              <td class="aligncenter">
+                (h) Rate-FID &darr; on MS COCO
+                </td>
+              <td class="aligncenter">
+                (h) Rate-IPD &darr; on MS COCO
+              </td>
+              <td class="aligncenter">
+                (h) Rate-PSNR &uarr; on MS COCO 
+                </td>
+
+            </tr>
+            <tr>
+              <td class="aligncenter">
+                <img src="./image/rate_IS_jpeg_j2k_bird.png" width=100% alt="">
+              </td>
+              <td class="aligncenter">
+                <img src="./image/rate_FID_jpeg_j2k_bird.png" width=100% alt="">
+                </td>
+              <td class="aligncenter">
+                <img src="./image/rate_IPD_jpeg_j2k_bird.png" width=100% alt="">
+              </td>
+              <td class="aligncenter">
+                <img src="./image/rate_PSNR_jpeg_j2k_bird.png" width=100% alt="">
+                </td>
+
+            </tr>
+            <tr>
+              <td class="aligncenter">
+                (h) Rate-IS &uarr; on CUB 200
+              </td>
+              <td class="aligncenter">
+                (h) Rate-FID &darr; on CUB 200
+                </td>
+              <td class="aligncenter">
+                (h) Rate-IPD &darr; on CUB 200
+              </td>
+              <td class="aligncenter">
+                (h) Rate-PSNR &uarr; on CUB 200
+              </td>
+
+            </tr>
+       
       </tbody>
   </table>
 
